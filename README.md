@@ -1,11 +1,12 @@
 # Carrot
 
 
-### How compilation works
+### How it works
 ```mermaid
 flowchart TD
-    A[Input] --> B
-    B[Pre-preprocessor] --> C
-    C[Preprocessor] --> D
-    D[Tokeniser]
+    I[Input]
+    --> |Source text| PPP[Pre-preprocessor]
+    --> |Escaped text| PP[Preprocessor]
+    --> |Escaped text with whitespace removed| T[Tokeniser]
+    --> |Tokens| TODO
 ```

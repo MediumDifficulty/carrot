@@ -4,6 +4,6 @@ mod tests {
 
     #[test]
     fn test() {
-        println!("{:?}", preprocess("\\\"test"))
+        println!("{:?}", prepreprocess("\\\"test"))
     }
 }

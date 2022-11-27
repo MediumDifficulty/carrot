@@ -1,6 +1,6 @@
 use crate::{err_str, return_err};
 
-pub fn preprocess(input: &str) -> Result<Vec<Escaped>, String> {
+pub fn prepreprocess(input: &str) -> Result<Vec<Escaped>, String> {
     let escaped_chars = input.chars()
         .map(|c| Escaped::Char(c))
         .collect::<Vec<Escaped>>();
