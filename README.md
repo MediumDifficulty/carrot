@@ -10,7 +10,7 @@ flowchart TD
     --> |Escaped text with whitespace removed| T[Tokeniser]
     --> |Tokens| F[Conver to functions]
     --> |Function tree| B[Convert to bytecode]
-    B --> VM[Run in CVM]
-    B --> C[Compile other target]
+    B --> |Bytecode| VM[Run in CVM]
+    B --> |Bytecode| C[Compile/transpile to other target]
     C --> Run
 ```
