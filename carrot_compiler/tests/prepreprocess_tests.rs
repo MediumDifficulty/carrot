@@ -3,7 +3,7 @@ mod tests {
     use carrot_compiler::prepreprocessor::*;
 
     #[test]
-    fn test() {
+    fn pre_preprocessor_test() {
         println!("{:?}", prepreprocess("\\\"test"))
     }
 }

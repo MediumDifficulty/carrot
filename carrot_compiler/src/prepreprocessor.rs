@@ -1,4 +1,4 @@
-use crate::{err_str, return_err};
+use crate::util::ErrStr;
 
 pub fn prepreprocess(input: &str) -> Result<Vec<Escaped>, String> {
     let escaped_chars = input.chars()
@@ -8,7 +8,7 @@ pub fn prepreprocess(input: &str) -> Result<Vec<Escaped>, String> {
     let mut escaped = Vec::new();
     let mut is_escaped = false;
     for c in escaped_chars.iter() {
-        let c_char = return_err!(c.char());
+        let c_char = c.char()?;
 
         if c_char == '\\' && is_escaped {
             escaped.push(Escaped::Char('\\'));
@@ -23,7 +23,7 @@ pub fn prepreprocess(input: &str) -> Result<Vec<Escaped>, String> {
 
         if is_escaped {
             escaped.push(
-                return_err!(Escaped::from_char(return_err!(c.char())))
+                Escaped::from_char(c.char()?)?
             );
             is_escaped = false;
             continue;
@@ -45,14 +45,28 @@ impl Escaped {
     fn from_char(c: char) -> Result<Self, String> {
         match c {
             '"' => Ok(Self::Quote),
-            _ => err_str!("Invalid escaped character")
+            _ => "Invalid escaped character".to_err()
         }
     }
 
     pub fn char(&self) -> Result<char, String> {
         match self {
             Self::Char(c) => Ok(*c),
-            _ => err_str!("/!\\ Cannot get character from anything other than Escaped::Char")
+            _ => "PPP /!\\ Cannot get character from anything other than Escaped::Char".to_err()
+        }
+    }
+
+    pub fn escaped_char(&self) -> Result<char, String> {
+        match self {
+            Self::Quote => Ok('"'),
+            _ => "PPP /!\\ Cannot get escaped char from Escaped::Char".to_err()
+        }
+    }
+
+    pub fn is_escaped(&self) -> bool {
+        match self {
+            Self::Char(_) => false,
+            _ => true
         }
     }
 }

@@ -1,6 +1,6 @@
-use crate::{prepreprocessor::Escaped, return_err};
+use crate::prepreprocessor::Escaped;
 
-pub fn preprocess(input: Vec<Escaped>) -> Vec<Escaped> {
+pub fn preprocess(input: Vec<Escaped>) -> Result<Vec<Escaped>, String> {
     let mut preprocessed = Vec::new();
 
     let mut in_string = false;
@@ -10,18 +10,18 @@ pub fn preprocess(input: Vec<Escaped>) -> Vec<Escaped> {
             continue;
         }
 
-        if return_err!(esc.char()) == '"' {
+        if esc.char()? == '"' {
             in_string = !in_string;
             preprocessed.push(Escaped::Char('"'));
             continue;
         }
 
-        if return_err!(esc.char()).is_whitespace() && !in_string {
+        if esc.char()?.is_whitespace() && !in_string {
             continue;
         }
 
         preprocessed.push(esc)
     }
 
-    preprocessed
+    Ok(preprocessed)
 }
