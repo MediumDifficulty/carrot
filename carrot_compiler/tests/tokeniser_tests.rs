@@ -4,7 +4,9 @@ mod tests {
 
     #[test]
     fn tokeniser_test() {
-        let preprocessed = preprocess(prepreprocessor::prepreprocess("a(sd)f)").unwrap());
+        let preprocessed = preprocess(prepreprocessor::prepreprocess("
+        let(abc, \"abc\");
+        ").unwrap());
         println!("Preprocessed: {:?}", preprocessed);
         println!("Tokenised: {:?}", tokenise(preprocessed.unwrap()));
     }
