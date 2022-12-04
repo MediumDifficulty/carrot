@@ -16,16 +16,16 @@ mod tests {
         ));
         ";
 
-        let prepreprocessed = prepreprocessor::prepreprocess(input.clone()).unwrap();
+        let prepreprocessed = prepreprocessor::prepreprocess(input).unwrap();
         println!("prepreprocessed: {:?}", prepreprocessed);
 
-        let preprocessed = preprocessor::preprocess(prepreprocessed.clone()).unwrap();
+        let preprocessed = preprocessor::preprocess(prepreprocessed).unwrap();
         println!("preprocessed: {:?}", preprocessed);
 
-        let tokenised = tokeniser::tokenise(preprocessed.clone()).unwrap();
+        let tokenised = tokeniser::tokenise(preprocessed).unwrap();
         println!("tokenised: {:?}", tokenised);
 
-        let function_tree = funcifier::funcify(tokenised.clone()).unwrap();
+        let function_tree = funcifier::funcify(tokenised).unwrap();
         println!("function_tree: {:?}", function_tree);
     }
 }

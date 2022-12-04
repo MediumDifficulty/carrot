@@ -64,6 +64,6 @@ impl Escaped {
     }
 
     pub fn is_escaped(&self) -> bool {
-        matches!(self, Self::Char(_))
+        !matches!(self, Self::Char(_))
     }
 }
