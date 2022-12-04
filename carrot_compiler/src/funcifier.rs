@@ -84,7 +84,7 @@ fn parse_args(tokens: Vec<Token>) -> Result<Vec<FunctionArg>, String> {
                 let mut iter = arg.iter();
                 iter.next();
                 iter.next_back();
-                iter.map(|t| t.clone())
+                iter.cloned()
                     .collect()
             })?))
         })

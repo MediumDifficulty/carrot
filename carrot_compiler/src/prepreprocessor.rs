@@ -2,7 +2,7 @@ use crate::util::ErrStr;
 
 pub fn prepreprocess(input: &str) -> Result<Vec<Escaped>, String> {
     let escaped_chars = input.chars()
-        .map(|c| Escaped::Char(c))
+        .map(Escaped::Char)
         .collect::<Vec<Escaped>>();
 
     let mut escaped = Vec::new();
@@ -64,9 +64,6 @@ impl Escaped {
     }
 
     pub fn is_escaped(&self) -> bool {
-        match self {
-            Self::Char(_) => false,
-            _ => true
-        }
+        matches!(self, Self::Char(_))
     }
 }

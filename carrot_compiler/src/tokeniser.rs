@@ -6,7 +6,7 @@ pub fn tokenise(input: Vec<Escaped>) -> Result<Vec<Token>, String> {
     let mut buffer = String::new();
     let mut tokens = Vec::new();
 
-    for (i, e) in input.iter().enumerate() {
+    for e in input.iter() {
         if e.is_escaped() {
             buffer.push(e.escaped_char()?);
             continue;
@@ -46,7 +46,7 @@ pub fn tokenise(input: Vec<Escaped>) -> Result<Vec<Token>, String> {
     Ok(tokens)
 }
 
-fn flush<'a>(
+fn flush(
     state: State,
     tokens: &mut Vec<Token>,
     buffer: &mut String
@@ -57,7 +57,7 @@ fn flush<'a>(
 
     tokens.push(match state {
         State::String => Token::String(buffer.to_owned()),
-        State::Number => Token::Number(buffer.parse().or_else(|_| return "Could not parse number".to_err()).unwrap()),
+        State::Number => Token::Number(buffer.parse().or_else(|_| "Could not parse number".to_err()).unwrap()),
         State::Identifier => Token::Identifier(buffer.to_owned()),
         State::Single => return "T /!\\ Tried to clear buffer when state is nothing".to_err(),
     });
@@ -87,13 +87,7 @@ pub enum Token {
 
 impl Token {
     fn char_is_single(c: char) -> bool {
-        match c {
-            '(' => true,
-            ')' => true,
-            ';' => true,
-            ',' => true,
-            _ => false
-        }
+        matches!(c, '(' | ')' | ';' | ',')
     }
 
     fn from_single(c: char) -> Result<Self, String> {
