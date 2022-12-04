@@ -74,7 +74,7 @@ enum State {
     Identifier
 }
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq, Clone)]
 pub enum Token {
     Identifier(String),
     String(String),
